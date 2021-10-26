@@ -62,7 +62,6 @@ contract GeneralizedDaiFlashLoan is IERC3156FlashBorrower {
 
     function isWhitelisted(address user) public view returns (bool) {
         return whitelist[user];
-        return whitelist[daiLender];
     }
 
     function addToWhitelist(address newUser) public {
