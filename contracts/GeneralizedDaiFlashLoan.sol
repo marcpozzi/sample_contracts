@@ -32,7 +32,7 @@ interface IERC3156FlashLender {
 }
 
 interface IGeneralizedCaller {
-    function makeCalls(address[] calldata _targets, bytes[] calldata _datas, address _origin, uint256 payAmount)
+    function makeCalls(address[] calldata _targets, bytes[] calldata _datas, uint256 payAmount)
     external
     payable;
 }
@@ -109,7 +109,7 @@ contract GeneralizedDaiFlashLoan is IERC3156FlashBorrower {
 
         (ParamsPay memory params) = abi.decode(data, (ParamsPay));
 
-        IGeneralizedCaller(params.generalizedCaller).makeCalls(params.targets, params.calldatas, tx.origin, params.payAmount);
+        IGeneralizedCaller(params.generalizedCaller).makeCalls(params.targets, params.calldatas, params.payAmount);
 
         return keccak256("ERC3156FlashBorrower.onFlashLoan");
     }
@@ -148,7 +148,6 @@ contract GeneralizedDaiFlashLoan is IERC3156FlashBorrower {
     function makeCalls(
         address[] calldata _targets,
         bytes[] calldata _datas,
-        address _origin,
         uint256 payAmount
     )
     external
